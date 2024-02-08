@@ -50,10 +50,12 @@ class DungeonRoom:
     room.exits[directions[side]] = self
 
   def ask_topics(self, tokens):
-    for my_topic in self.topics:
-      if my_topic.name in tokens:
-        if my_topic.activities in tokens:
-          print(f"Doing an {my_topic.activities}")
+    for topic in self.topics:
+      for keywords in tokens:
+        if keywords == topic:
+            for action in self.topics[topic]:
+                if action in tokens:
+                  print("works")
 
   def print_desc(self):
     print(self.description)
