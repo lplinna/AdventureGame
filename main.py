@@ -1,8 +1,11 @@
 from dungeon import DungeonRoom, Topic
+from player import *
 from commands import take_command
 
+
+main_player = Player(0)
 char_name = input("What is your character's name: ")
-class_dict = {
+number_to_class_name = {
     '1': "Fighter",
     '2': "Wizard",
     '3': "Monk",
@@ -10,42 +13,36 @@ class_dict = {
     '5': "Healer"
 }
 
-class_info = {
-    'fighter': {
-        'health': 30,
-        'equipment': 'sword'
-    },
-    'wizard': {
-        'health': 8,
-        'equipment': 'staff'
-    },
-    'monk': {
-        'health': 15,
-        'equipment': 'brass knuckles'
-    }
-}
 
-print(class_dict)
+print(number_to_class_name)
 char_class = input("What is your character's class: ")
-print(
-    f"Your character's name is {char_name} and your class is {class_dict[char_class]}"
+print( 
+    f"Your character's name is {char_name} and your class is {number_to_class_name[char_class]}"
 )
 print(
-    f"Your character has {class_info[class_dict[char_class].lower()]['health']} health"
+    f"Your character has {class_info[number_to_class_name[char_class].lower()]['health']} health"
 )
+
+main_player.take_class(number_to_class_name[char_class].lower())
+
 
 cellar = DungeonRoom("A room full of wine barrels", [])
 starting_room = DungeonRoom("A dark room.", [])
 starting_room.set_exit("west", cellar)
 starting_room.topics = [
-    Topic("floorboard", "A floorboard is loose", "investigate"),
-    Topic("mirror", "A mirror shines on the wall", "look")
+    Topic("floorboard", "A floorboard is loose", {
+      "investigate" : "The board is loose.",
+      "press" : "The board creaks"
+    },
+    Topic("mirror", "A mirror shines on the wall", {
+    "look" : "You see your reflection" 
+    })
 ]
 
 
 class Game:
   room = starting_room
-  player = char_name
+  player = main_player
 
 
 current_game = Game()
