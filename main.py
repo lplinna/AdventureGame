@@ -53,4 +53,4 @@ current_game = Game()
 while True:
   command = input("What would you like to do: ")
   take_command(command, current_game)
-  current_game.room.print_desc()
+  

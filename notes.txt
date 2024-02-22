@@ -1,0 +1,36 @@
+EASIEST
+Reminders or a "help" command - DONE
+Inventory
+Uses for Inventory
+Classes - unique things only each class can have (skills)
+Quests
+NPCS
+Battles and Monsters
+HARDEST
+
+
+
+Items:
+  Value (in money)
+  Name
+  Rarity
+  Description
+
+  Weapon
+    attack / use function
+    damage Value
+    upgrade cost
+    weapon type
+  Consumable
+    apply to player function
+    health change
+    armor change
+    money drop change
+    How long do potions last?
+    How do figure out if they're done or not
+  Tool
+    quest_id
+    topics
+    How can i use a Tool on something in a room?
+    Combining tools together
+    
