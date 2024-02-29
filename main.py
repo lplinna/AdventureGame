@@ -33,10 +33,10 @@ starting_room.topics = [
     Topic("floorboard", "A floorboard is loose", {
       "investigate" : "The board is loose.",
       "press" : "The board creaks"
-    },
+    }),
     Topic("mirror", "A mirror shines on the wall", {
     "look" : "You see your reflection" 
-    }))
+    })
 ]
 
 
