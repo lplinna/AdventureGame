@@ -36,7 +36,7 @@ starting_room.topics = [
     },
     Topic("mirror", "A mirror shines on the wall", {
     "look" : "You see your reflection" 
-    })
+    }))
 ]
 
 
