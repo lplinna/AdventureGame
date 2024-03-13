@@ -86,6 +86,8 @@ combinewords = ["use","combine"]
 main_pool = [kitchen]
 main_pool += kitchen.items
 
+# some test stuff
+
 while True:
   command = input("What next?\n")
   subjects = [s for s in main_pool if s.name in command]
