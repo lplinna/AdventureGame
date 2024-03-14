@@ -1,15 +1,26 @@
 
 
+class GameObject:
+    def __init__(self,name,description):
+        self.name = name
+        self.description = description
 
 
-stuff = ["ball","tree","axe","lumber","chopstick","apple", "look around","run away"]
+#verbs = ["pick up", "put down","touch", "throw","look around", "run away"]
+#stuff = ["ball","tree","axe","lumber","chopstick","apple"]
+        
+axe = GameObject("axe", "A sturdy handaxe.")
+apple = GameObject("apple", "A shiny red apple.")
 
-print([thing for thing in stuff if "l" in thing])
+stuff = [axe, apple]
+
+#print([thing for thing in stuff if "l" in thing])
 
 while True:
     command = input("What next?\n")
-    words = command.split()
-    for i in words:
-        if i in stuff:
-            print(i)
+    #subjects = [word for word in stuff if word in command]
+    #verbs = [verb for verb in verbs if verb in command]
+    subjects = [topic for topic in stuff if topic.name in command]
+    print([thing.name for thing in subjects])
+
 
