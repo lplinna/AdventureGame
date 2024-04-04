@@ -5,6 +5,7 @@ colors = {
     "brown": "dirty"
 }
 
+
 # Output: red hot blue cold orange juicy brown dirty
 #print(" ".join([thing + " " + colors[thing] for thing in colors]))
 #print(" " .join([ a[0] + " "+  a[1] for a in colors.items()]))
@@ -27,9 +28,8 @@ colors = {
 # Output "Every juicy is hot"
 dict_of = []
 inputString = "Every orange is red"
-for word in inputString.split():
-    if word in colors:
-        dict_of.append(word)
+subjects = [key for keys in colors.keys() if key in inputString]
+print(subjects)
     
 
 print(f"Every {colors[dict_of[0]]} is {colors[dict_of[1]]}")
