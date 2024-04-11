@@ -1,42 +1,36 @@
 
 
-
 class GameObject:
     def __init__(self,name,description):
         self.name = name
         self.description = description
         self.cmd = {}
+        self.verb("observe", lambda: print(self.description))
+
     def verb(self,verb,result):
         self.cmd[verb] = result
+
     def doverb(self,verb):
         result = self.cmd[verb]
-        if isinstance(result,str):
+        if(isinstance(result,str)):
             print(result)
         else:
             result()
         
-    
-
-#verbs = ["pick up", "put down","touch", "throw","look around", "run away"]
-#stuff = ["ball","tree","axe","lumber","chopstick","apple"]
-        
-axe = GameObject("axe", "A sturdy handaxe.")
+tree = GameObject("tree", "A big, sturdy tree.")
+axe = GameObject("axe", "A sharp handaxe.")
+lumber = GameObject("lumber", "A pile of wood.")
 apple = GameObject("apple", "A shiny red apple.")
 apple.verb("touch","You touch the apple")
 apple.verb("look at","You look at the apple. It's quite shiny..")
 
+def bite_apple():
+    apple.description = "An apple with a bite taken out of it"
+    apple.doverb("observe")
 
-def fly_away():
-    print("You fly away")
-    
-axe.verb("look at",fly_away)
+apple.verb("bite",bite_apple)
 
-stuff = [axe, apple]
-
-#print([thing for thing in stuff if "l" in thing])
-# keys()
-# values()
-# items() [key,value]
+stuff = [axe, apple, tree]
 
 
 while True:
