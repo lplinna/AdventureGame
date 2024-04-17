@@ -26,7 +26,7 @@ apple.verb("look at","You look at the apple. It's quite shiny..")
 
 def bite_apple():
     apple.description = "An apple with a bite taken out of it"
-    apple.doverb("observe")
+    print("You bite the apple. Tastes yummy!")
 
 apple.verb("bite",bite_apple)
 
