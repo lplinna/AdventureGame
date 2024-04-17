@@ -30,14 +30,3 @@ def bite_apple():
 
 apple.verb("bite",bite_apple)
 
-stuff = [axe, apple, tree]
-
-
-while True:
-    command = input("What next?\n")
-
-    subjects = [things for things in stuff if things.name in command]
-    for subject in subjects:
-        for key,value in subject.cmd.items():
-            if key in command:
-                subject.doverb(key)

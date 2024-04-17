@@ -18,5 +18,4 @@ def take_command(command, current_game):
       print("Possible commands:")
       for cmds in commands:
         print(f"{cmds}: {commands[cmds]}")
-  current_game.room.ask_topics(tokens)
-  return
+  current_game.room.ask_objects(command)
