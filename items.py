@@ -70,4 +70,8 @@ axe.use_tool()
 ##  tool -> topic
 ##  tool -> tool
 ##  tool -> item
+
+## anything -> anything
+
+
 ## chop mirror, chop board, chop door,  chop lumber
