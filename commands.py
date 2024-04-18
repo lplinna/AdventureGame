@@ -7,6 +7,14 @@ def go_direction(direction, game):
     print(f"You travel {direction}.")
 
 
+def ask_gameobjects( command , list):
+    subjects = [things for things in list if things.name in command]
+    for subject in subjects:
+        for key,value in subject.cmd.items():
+            if key in command:
+                subject.doverb(key)
+
+
 def take_command(command, current_game):
   tokens = command.split(" ")
   match tokens[0]:
@@ -18,4 +26,5 @@ def take_command(command, current_game):
       print("Possible commands:")
       for cmds in commands:
         print(f"{cmds}: {commands[cmds]}")
-  current_game.room.ask_objects(command)
+  possible_objects = current_game.room.objects + current_game.player.equipment
+  ask_gameobjects(command, possible_objects)
