@@ -20,12 +20,6 @@ class DungeonRoom:
     self.exits[side] = room
     room.exits[directions[side]] = self
 
-  def ask_objects(self, command):
-    subjects = [things for things in self.objects if things.name in command]
-    for subject in subjects:
-        for key,value in subject.cmd.items():
-            if key in command:
-                subject.doverb(key)
 
   def print_desc(self):
     print(self.description)

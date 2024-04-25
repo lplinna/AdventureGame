@@ -1,15 +1,17 @@
+from items import sword,staff,knuckles
+
 class_info = {
     'fighter': {
         'health': 30,
-        'equipment': 'sword'
+        'equipment': [sword]
     },
     'wizard': {
         'health': 8,
-        'equipment': 'staff'
+        'equipment': [staff]
     },
     'monk': {
         'health': 15,
-        'equipment': 'brass knuckles'
+        'equipment': [knuckles]
     }
 }
 
