@@ -66,7 +66,7 @@ class Ball:
     
     def collides_brectangle(self, brectangle):
        if self.inside_rectangle(brectangle):
-        print("Inside")
+        #print("Inside")
         if self.y > brectangle.y + brectangle.height:
            self.vely = -self.vely
         elif self.y < brectangle.y:
@@ -75,8 +75,9 @@ class Ball:
            self.velx = -self.velx
         elif self.x > brectangle.x + brectangle.width:
            self.velx = -self.velx
+        return True
        else:
-          print("Not inside")
+          return False
 
     def update(self):
         self.x += self.velx
@@ -93,6 +94,21 @@ class Ball:
 
 playerBall = Ball()
 testRect = Brectangle(GREEN,WIDTH * 0.9,HEIGHT * 0.2,WIDTH * 0.4,HEIGHT * 0.1)
+
+blocks = []
+block_width = WIDTH / 20
+block_height = block_width * 0.2
+block_spacing = 5
+b_x = 0
+b_y = 0
+for i in range(30):
+   b_x += block_width + block_spacing
+   if b_x > WIDTH:
+      b_x = 0
+      b_y += block_height + block_spacing
+   blocks.append(Brectangle(GREEN, b_x, b_y, block_width, block_height))
+
+
 
 
 running = True
@@ -115,6 +131,11 @@ while running:
     playerBall.update()
     testRect.draw(screen)
     playerBall.collides_brectangle(testRect)
+
+    for block in blocks:
+       block.draw(screen)
+       if playerBall.collides_brectangle(block):
+          blocks.remove(block)
 
     pygame.display.flip()
     pygame.time.Clock().tick(60)
