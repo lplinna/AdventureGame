@@ -29,9 +29,10 @@ class Brectangle:
       self.y = y
       self.width = width
       self.height = height
-   # Draw
-   # Collision
-   pass
+  
+   def draw(self,screen):
+      pygame.draw.rect(screen,self.color,(self.x,self.y,self.width,self.height))
+
 
 class Paddle(Brectangle):
    #
@@ -55,6 +56,28 @@ class Ball:
 
     def draw(self, screen):
         pygame.draw.circle(screen, (0,0,255), (self.x,self.y), 5)
+
+    def collides_rectangle(self, rectangle):
+      if ((rectangle.x+rectangle.width) >= (self.x-5)) and ((rectangle.x) <= (self.x+5)) and ((rectangle.y+rectangle.height) >= (self.y-5)) and (rectangle.y) <= ((self.y+5)):
+        return True
+      else:
+        return False
+      
+    def bounce_rectangle(self, rectangle):
+       if self.collides_rectangle(rectangle):
+        if self.x > rectangle.width + rectangle.x:
+          self.velx = -self.velx
+          self.x = rectangle.width + rectangle.x + 5
+        elif self.x < rectangle.x:
+          self.velx = -self.velx
+          self.x = rectangle.x - 5
+        if self.y > rectangle.height + rectangle.y:
+          self.vely = -self.vely
+          self.y = rectangle.y + rectangle.height + 5
+        elif self.y < rectangle.y:
+          self.vely = -self.vely
+          self.y = rectangle.y - 5
+
     def update(self):
         self.x += self.velx
         self.y += self.vely
@@ -69,6 +92,7 @@ class Ball:
 
 
 playerBall = Ball()
+testRect = Brectangle(BLACK,30,30,120,20)
 
 running = True
 while running:
@@ -78,10 +102,20 @@ while running:
     
     screen.fill(WHITE)
 
-    draw_rectangle_grid(20,50)
+    #draw_rectangle_grid(20,50)
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT] and testRect.x > 0:
+       testRect.x -= 5
+    if keys[pygame.K_RIGHT] and testRect.x < WIDTH - 120:
+       testRect.x += 5
 
     playerBall.draw(screen)
     playerBall.update()
+
+    testRect.draw(screen)
+    playerBall.bounce_rectangle(testRect)
+
 
     pygame.display.flip()
     pygame.time.Clock().tick(60)
