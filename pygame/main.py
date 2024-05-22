@@ -96,7 +96,7 @@ playerBall = Ball()
 testRect = Brectangle(GREEN,WIDTH * 0.9,HEIGHT * 0.2,WIDTH * 0.4,HEIGHT * 0.1)
 
 blocks = []
-block_width = WIDTH / 20
+block_width = WIDTH / 10
 block_height = block_width * 0.2
 block_spacing = 5
 b_x = 0
@@ -135,7 +135,7 @@ while running:
     for block in blocks:
        block.draw(screen)
        if playerBall.collides_brectangle(block):
-          blocks.remove(block)
+          blocks.erase(block)
 
     pygame.display.flip()
     pygame.time.Clock().tick(60)
