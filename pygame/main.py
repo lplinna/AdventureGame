@@ -9,19 +9,6 @@ screen = pygame.display.set_mode((WIDTH,HEIGHT))
 WHITE = (255,255,255)
 BLACK = (0,0,0)
 
-def draw_rectangle_grid(repeat, distance):
-    x = 30
-    y = 30
-    wide = 80
-    long = 80
-    while repeat > 0:
-        pygame.draw.rect(screen,BLACK,(x,y,wide,long))
-        repeat -= 1
-        x += wide + distance
-        if WIDTH - x <= distance:
-            y += long + distance
-            x = 30
-
 class Brectangle:
    def __init__(self,color,x,y,width,height):
       self.color = color
@@ -32,6 +19,26 @@ class Brectangle:
   
    def draw(self,screen):
       pygame.draw.rect(screen,self.color,(self.x,self.y,self.width,self.height))
+
+
+blocks = []
+def make_blocks(repeat, distance):
+    x = 30
+    y = 30
+    wide = 80
+    long = 80
+    while repeat > 0:
+        #pygame.draw.rect(screen,BLACK,(x,y,wide,long))
+        # ADD BLOCK HERE
+        block = Brectangle(BLACK,x,y,wide,long)
+        blocks.append(block)
+        repeat -= 1
+        x += wide + distance
+        if WIDTH - x <= distance:
+            y += long + distance
+            x = 30
+
+
 
 
 class Paddle(Brectangle):
@@ -64,7 +71,7 @@ class Ball:
         return False
       
     def bounce_rectangle(self, rectangle):
-       if self.collides_rectangle(rectangle):
+      if self.collides_rectangle(rectangle):
         if self.x > rectangle.width + rectangle.x:
           self.velx = -self.velx
           self.x = rectangle.width + rectangle.x + 5
@@ -77,6 +84,9 @@ class Ball:
         elif self.y < rectangle.y:
           self.vely = -self.vely
           self.y = rectangle.y - 5
+        return True
+      return False
+  
 
     def update(self):
         self.x += self.velx
@@ -92,7 +102,9 @@ class Ball:
 
 
 playerBall = Ball()
-testRect = Brectangle(BLACK,30,30,120,20)
+testRect = Brectangle(BLACK,400,550,120,20)
+make_blocks(10,30)
+print(blocks)
 
 running = True
 while running:
@@ -112,11 +124,23 @@ while running:
 
     playerBall.draw(screen)
     playerBall.update()
+    for block in blocks:
+       block.draw(screen)
+       if playerBall.bounce_rectangle(block):
+          blocks.remove(block)
+          
+
+    if(playerBall.y > HEIGHT / 2):
+       if len(blocks) == 0:
+             make_blocks(10,30)
 
     testRect.draw(screen)
-    playerBall.bounce_rectangle(testRect)
-
-
+    if playerBall.bounce_rectangle(testRect):
+       if keys[pygame.K_RIGHT]:
+          playerBall.velx += 2
+       if keys[pygame.K_LEFT]:
+          playerBall.velx -= 2
+      
     pygame.display.flip()
     pygame.time.Clock().tick(60)
   
