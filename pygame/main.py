@@ -50,10 +50,21 @@ class Block(Brectangle):
    pass
 
 
+class Line:
+   def __init__(self,x1,y1,x2,y2):
+      self.points = [x1,y1,x2,y2]
+      self.normal = pygame.Vector2(y2 - y1, x2 - x1).normalize()
+   def overlap(self,x,y):
+      direction = pygame.Vector2(x - self.points[0], y - self.points[1])
+      return direction.dot(self.normal)
+
+
+
+
 class Ball:
     def __init__(self):
         self.x = WIDTH / 2
-        self.y = HEIGHT / 2
+        self.y = HEIGHT / 8
         self.velx = 4
         self.vely = 4
     def draw(self, screen):
@@ -79,10 +90,16 @@ class Ball:
        else:
           return False
        
-    def rectangle_top(self, brectangle):
-        top_tangent = pygame.Vector2(1,0)
-        top_direction = pygame.Vector2(self.x - brectangle.x, self.y - brectangle.y)
-        print(top_direction.dot(top_tangent))
+
+        
+       
+    def collide_top(self, brectangle):
+        z = Line(brectangle.x, brectangle.y, brectangle.x + brectangle.width, brectangle.y)
+        #z = Line(brectangle.x, brectangle.y, brectangle.x + 3, brectangle.y + 3)
+        print(z.overlap(self.x,self.y))
+
+
+
 
     def update(self):
         self.x += self.velx
@@ -135,8 +152,8 @@ while running:
     playerBall.draw(screen)
     playerBall.update()
     testRect.draw(screen)
-    playerBall.collides_brectangle(testRect)
-    playerBall.rectangle_top(testRect)
+    #playerBall.collides_brectangle(testRect)
+    playerBall.collide_top(testRect)
 
     for block in blocks:
        block.draw(screen)
