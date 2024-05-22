@@ -78,6 +78,11 @@ class Ball:
         return True
        else:
           return False
+       
+    def rectangle_top(self, brectangle):
+        top_tangent = pygame.Vector2(1,0)
+        top_direction = pygame.Vector2(self.x - brectangle.x, self.y - brectangle.y)
+        print(top_direction.dot(top_tangent))
 
     def update(self):
         self.x += self.velx
@@ -131,11 +136,12 @@ while running:
     playerBall.update()
     testRect.draw(screen)
     playerBall.collides_brectangle(testRect)
+    playerBall.rectangle_top(testRect)
 
     for block in blocks:
        block.draw(screen)
        if playerBall.collides_brectangle(block):
-          blocks.erase(block)
+          blocks.remove(block)
 
     pygame.display.flip()
     pygame.time.Clock().tick(60)
