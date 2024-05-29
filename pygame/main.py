@@ -97,11 +97,11 @@ print(blocks)
 while True:
   running = True
   while running:
-      for event in pygame.event.get():
-          if event.type == pygame.QUIT:
-              running = False
+      for event in pygame.event.get(): ##
+          if event.type == pygame.QUIT: ##
+              running = False ##
       
-      screen.fill(WHITE)
+      screen.fill(WHITE) ###
 
       #draw_rectangle_grid(20,50)
 
@@ -130,8 +130,8 @@ while True:
         if keys[pygame.K_LEFT]:
             playerBall.velx -= 2
         
-      pygame.display.flip()
-      pygame.time.Clock().tick(60)
+      pygame.display.flip() ###
+      pygame.time.Clock().tick(60) ### 
 
 
   while running == False:
