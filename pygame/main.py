@@ -40,20 +40,6 @@ def make_blocks(repeat, distance):
 
 
 
-
-class Paddle(Brectangle):
-   #
-   #
-   #
-   pass
-
-class Block(Brectangle):
-   #
-   #
-   #
-   pass
-
-
 class Ball:
     def __init__(self):
         self.x = WIDTH / 2
@@ -93,12 +79,14 @@ class Ball:
         self.y += self.vely
         if self.y >= HEIGHT - 5:
           self.vely = -self.vely
+          return False
         elif self.y <= 5:
           self.vely = -self.vely
         elif self.x >= WIDTH - 5:
           self.velx = -self.velx
         elif self.x <= 5:
           self.velx = -self.velx
+        return True
 
 
 playerBall = Ball()
@@ -106,43 +94,55 @@ testRect = Brectangle(BLACK,400,550,120,20)
 make_blocks(10,30)
 print(blocks)
 
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-    
-    screen.fill(WHITE)
-
-    #draw_rectangle_grid(20,50)
-
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT] and testRect.x > 0:
-       testRect.x -= 5
-    if keys[pygame.K_RIGHT] and testRect.x < WIDTH - 120:
-       testRect.x += 5
-
-    playerBall.draw(screen)
-    playerBall.update()
-    for block in blocks:
-       block.draw(screen)
-       if playerBall.bounce_rectangle(block):
-          blocks.remove(block)
-          
-
-    if(playerBall.y > HEIGHT / 2):
-       if len(blocks) == 0:
-             make_blocks(10,30)
-
-    testRect.draw(screen)
-    if playerBall.bounce_rectangle(testRect):
-       if keys[pygame.K_RIGHT]:
-          playerBall.velx += 2
-       if keys[pygame.K_LEFT]:
-          playerBall.velx -= 2
+while True:
+  running = True
+  while running:
+      for event in pygame.event.get():
+          if event.type == pygame.QUIT:
+              running = False
       
+      screen.fill(WHITE)
+
+      #draw_rectangle_grid(20,50)
+
+      keys = pygame.key.get_pressed()
+      if keys[pygame.K_LEFT] and testRect.x > 0:
+        testRect.x -= 5
+      if keys[pygame.K_RIGHT] and testRect.x < WIDTH - 120:
+        testRect.x += 5
+
+      playerBall.draw(screen)
+      running = playerBall.update()
+      for block in blocks:
+        block.draw(screen)
+        if playerBall.bounce_rectangle(block):
+            blocks.remove(block)
+            
+
+      if(playerBall.y > HEIGHT / 2):
+        if len(blocks) == 0:
+              make_blocks(10,30)
+
+      testRect.draw(screen)
+      if playerBall.bounce_rectangle(testRect):
+        if keys[pygame.K_RIGHT]:
+            playerBall.velx += 2
+        if keys[pygame.K_LEFT]:
+            playerBall.velx -= 2
+        
+      pygame.display.flip()
+      pygame.time.Clock().tick(60)
+
+
+  while running == False:
+    screen.fill(BLACK)
+    for event in pygame.event.get():
+          if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_a:
+                running = True
+          if event.type == pygame.QUIT:
+              pygame.quit()
+              sys.exit()
     pygame.display.flip()
     pygame.time.Clock().tick(60)
   
-pygame.quit()
-sys.exit()
