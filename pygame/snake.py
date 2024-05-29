@@ -22,18 +22,21 @@ def make_grid():
     for i in range(math.floor(WIDTH / grid_size_pixels)):
         middle = []
         for j in range(math.floor(HEIGHT / grid_size_pixels)):
-            j.append(0)
+            middle.append(0)
         start.append(middle)
+    return start
 
 main_grid = make_grid()
-main_grid[3][3] = 1
-main_grid[5][5] = 1
+main_grid[1][1] = 1
+main_grid[5][8] = 1
 
 
 def get_color(x_screen,y_screen):
-    x_grid = x_screen / grid_size_pixels
-    y_grid = y_screen / grid_size_pixels
-    if main_grid[x_grid][y_grid] == 1:
+    x_grid = math.floor(x_screen / grid_size_pixels)
+    y_grid = math.floor(y_screen / grid_size_pixels)
+    col = main_grid[x_grid % len(main_grid)]
+    row = col[y_grid % len(col)]
+    if row == 1:
       return APPLE
     else:
       return DARK_GREEN
