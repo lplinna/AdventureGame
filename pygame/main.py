@@ -152,8 +152,8 @@ while running:
     playerBall.draw(screen)
     playerBall.update()
     testRect.draw(screen)
-    #playerBall.collides_brectangle(testRect)
-    playerBall.collide_top(testRect)
+    playerBall.collides_brectangle(testRect)
+    #playerBall.collide_top(testRect)
 
     for block in blocks:
        block.draw(screen)
