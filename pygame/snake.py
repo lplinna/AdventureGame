@@ -1,6 +1,7 @@
 import pygame
 import sys
 import math
+from snake_class import Snake
 
 pygame.init()
 
@@ -15,6 +16,13 @@ APPLE = (144,0,0)
 
 grid_size_pixels = 64
 
+'''
+Create the game snake.
+'''
+game_snake = Snake()
+game_snake.add_point_colliding(0,5)
+game_snake.add_point_colliding(1,5)
+game_snake.add_point_colliding(2,5)
     
 
 def make_grid():
@@ -26,18 +34,27 @@ def make_grid():
         start.append(middle)
     return start
 
+'''
+Create the game grid.
+'''
 main_grid = make_grid()
 main_grid[1][1] = 1
 main_grid[5][8] = 1
+game_snake.draw(main_grid)
+print(main_grid)
 
 
 def get_color(x_screen,y_screen):
     x_grid = math.floor(x_screen / grid_size_pixels)
     y_grid = math.floor(y_screen / grid_size_pixels)
-    col = main_grid[x_grid % len(main_grid)]
-    row = col[y_grid % len(col)]
+    x_clamped = max(0, min(x_grid,len(main_grid) - 1))
+    col = main_grid[x_clamped]
+    y_clamped = max(0, min(y_grid,len(col) - 1))
+    row = col[y_clamped]
     if row == 1:
-      return APPLE
+        return APPLE
+    elif row == 2:
+        return LIGHT_GREEN
     else:
       return DARK_GREEN
 
@@ -61,7 +78,7 @@ while running:
     for event in pygame.event.get(): ##
           if event.type == pygame.QUIT: ##
               running = False ## 
-    screen.fill(LIGHT_GREEN)
+    screen.fill(DARK_GREEN)
     draw_snake_grid(screen)
     pygame.display.flip()
     pygame.time.Clock().tick(60)
