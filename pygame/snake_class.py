@@ -41,6 +41,21 @@ class Snake:
     def draw(self, grid):
         for point in self.points:
                 grid[point[0]][point[1]] = 2
+            
+    '''
+    Move the snake one step in one direction.
+
+    '''
+    def move(self, grid):
+        head = self.points[len(self.points)-1]
+        tail = self.points.pop(0)
+        self.add_point(head[0]+1,head[1])
+
+        # Drawing part
+        grid[tail[0]][tail[1]] = 0
+        self.draw(grid)
+        print(self.points)
+
 
 '''
 s = Snake()
@@ -54,13 +69,17 @@ s.add_point(3,2)
 s.add_point(3,1)
 s.add_point(3,0)
 print(s.points)
-print(s.is_colliding())
-
-t = Snake()
-t.add_point(3,0)
-t.add_point(4,0)
-t.add_point(5,0)
-print(t.points)
-print(t.is_colliding())
+s.move()
+s.move()
+s.move()
+s.move()
+s.move()
+s.move()
+s.move()
+s.move()
+s.move()
+s.move()
+s.move()
+s.move()
+s.move()
 '''
-

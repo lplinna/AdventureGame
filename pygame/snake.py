@@ -23,6 +23,7 @@ game_snake = Snake()
 game_snake.add_point_colliding(0,5)
 game_snake.add_point_colliding(1,5)
 game_snake.add_point_colliding(2,5)
+
     
 
 def make_grid():
@@ -51,11 +52,11 @@ def get_color(x_screen,y_screen):
     col = main_grid[x_clamped]
     y_clamped = max(0, min(y_grid,len(col) - 1))
     row = col[y_clamped]
-    if row == 1:
+    if row == 1: # APPLE
         return APPLE
-    elif row == 2:
+    elif row == 2: # SNAKE
         return LIGHT_GREEN
-    else:
+    else: # GRID
       return DARK_GREEN
 
 
@@ -74,7 +75,12 @@ def draw_snake_grid(screen):
             x += size
 
 running = True
+time = 0
 while running:
+    time += 1
+    if time % 20 == 0:
+        game_snake.move(main_grid)
+
     for event in pygame.event.get(): ##
           if event.type == pygame.QUIT: ##
               running = False ## 
