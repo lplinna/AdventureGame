@@ -45,6 +45,8 @@ game_snake.draw(main_grid)
 print(main_grid)
 
 
+
+
 def get_color(x_screen,y_screen):
     x_grid = math.floor(x_screen / grid_size_pixels)
     y_grid = math.floor(y_screen / grid_size_pixels)
@@ -80,6 +82,16 @@ while running:
     time += 1
     if time % 20 == 0:
         game_snake.move(main_grid)
+
+    key = pygame.key.get_pressed()
+    if key[pygame.K_LEFT]:
+        game_snake.dir = "left"
+    elif key[pygame.K_RIGHT]:
+        game_snake.dir = "right"
+    elif key[pygame.K_UP]:
+        game_snake.dir = "up"
+    elif key[pygame.K_DOWN]:
+        game_snake.dir = "down"
 
     for event in pygame.event.get(): ##
           if event.type == pygame.QUIT: ##

@@ -5,6 +5,8 @@ class Snake:
     '''
     def __init__(self):
         self.points = []
+        self.dir = "up"
+        self.dead = False
         pass
     
     '''
@@ -21,6 +23,7 @@ class Snake:
         new_point = (x,y)
         if new_point in self.points:
            print("Colliding")
+           self.dead = True
         else:
            self.points.append(new_point)
 
@@ -37,22 +40,56 @@ class Snake:
     '''
     Draw the snake on the game grid.
 
+    
+    len(main_grid) // How many columns
+    len(main_grid[0]) // How many rows
+
+
+
     '''
+
     def draw(self, grid):
         for point in self.points:
-                grid[point[0]][point[1]] = 2
-            
+                if point[0] > -1 and point[1] > -1 and point[0] <  len(grid) and point[1] < len(grid[0]):
+                    grid[point[0]][point[1]] = 2
+                
+                #self.draw_snake_point_smart(grid,point,2)
+
+    '''
+    def draw_snake_point_smart(self, grid, point, value):
+        looped_x = point[0] % len(grid)
+        looped_y = point[1] % len(grid[0])
+        grid[looped_x][looped_y] = value
+    '''
+
+
     '''
     Move the snake one step in one direction.
+    IN THE FUTURE:
+    Grow the snake if apple is eaten
 
     '''
     def move(self, grid):
         head = self.points[len(self.points)-1]
         tail = self.points.pop(0)
-        self.add_point(head[0]+1,head[1])
 
+        # Moving part
+        if self.dir == "right":
+            self.add_point_colliding(head[0]+1,head[1]) ## CHANGE
+        elif self.dir == "left":
+            self.add_point_colliding(head[0]-1,head[1]) ## CHANGE
+        elif self.dir == "up":
+            self.add_point_colliding(head[0],head[1]-1) ## CHANGE
+        elif self.dir == "down":
+            self.add_point_colliding(head[0],head[1]+1) ## CHANGE
+
+        
+
+        
         # Drawing part
-        grid[tail[0]][tail[1]] = 0
+        if tail[0] > -1 and tail[1] > -1 and tail[0] <  len(grid) and tail[1] < len(grid[0]):
+            grid[tail[0]][tail[1]] = 0
+        #self.draw_snake_point_smart(grid,tail,0)
         self.draw(grid)
         print(self.points)
 
