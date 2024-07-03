@@ -66,7 +66,7 @@ class Snake:
     '''
     Move the snake one step in one direction.
     IN THE FUTURE:
-    Grow the snake if apple is eaten
+    Grow the snake if apple is eatenz
 
     '''
     def move(self, grid):
@@ -74,23 +74,30 @@ class Snake:
         tail = self.points.pop(0)
 
         # Moving part
+        walk_direction = [0,0]
         if self.dir == "right":
-            self.add_point_colliding(head[0]+1,head[1]) ## CHANGE
+            walk_direction = [1,0]
         elif self.dir == "left":
-            self.add_point_colliding(head[0]-1,head[1]) ## CHANGE
+            walk_direction = [-1,0]
         elif self.dir == "up":
-            self.add_point_colliding(head[0],head[1]-1) ## CHANGE
+            walk_direction = [0,-1]
         elif self.dir == "down":
-            self.add_point_colliding(head[0],head[1]+1) ## CHANGE
+            walk_direction = [0,1]
+        new_snake_head = [head[0] + walk_direction[0], head[1] + walk_direction[1]]
 
+        if new_snake_head[0] > -1 and new_snake_head[1] > -1 and new_snake_head[0] <  len(grid) and new_snake_head[1] < len(grid[0]):
+            if grid[new_snake_head[0]][new_snake_head[1]] == 1:
+                print("Apple eaten")
+                self.points.append(tail)
         
+        self.add_point_colliding(new_snake_head[0], new_snake_head[1])
 
-        
+                
         # Drawing part
+        self.draw(grid)
+
         if tail[0] > -1 and tail[1] > -1 and tail[0] <  len(grid) and tail[1] < len(grid[0]):
             grid[tail[0]][tail[1]] = 0
-        #self.draw_snake_point_smart(grid,tail,0)
-        self.draw(grid)
         print(self.points)
 
 
